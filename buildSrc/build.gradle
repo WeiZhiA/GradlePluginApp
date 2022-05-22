@@ -1,0 +1,72 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+    id 'com.gradle.plugin-publish' version '0.18.0'
+//    id 'groovy-gradle-plugin'
+}
+
+repositories {
+    jcenter()
+    google()
+}
+
+
+gradlePlugin {
+    plugins {
+//        simplePlugin {
+//            id = "com.future.groove"
+//            implementationClass = "com.future.GreetingPlugin"
+//        }
+
+        uploadApkPlugin {
+            // 配置插件的id，这里配置的id会在编译的时候生成一个xxx.properties，也就是你在使用这个插件的时候需要引入的插件id
+            id = "com.future.uploadApk"
+            // 配置插件的实现类
+            implementationClass = "com.future.UploadApkPlugin"
+        }
+
+    }
+}
+
+
+//gradlePlugin {
+//    plugins {
+//        greetingsPlugin {
+//            id = 'org.example.greeting'
+//            displayName = 'Greeting Plugin'
+//            description = 'Template for people to start their own plugin adventure'
+//            implementationClass = 'org.example.greeting.GreetingPlugin'
+//        }
+//    }
+//}
+
+
+pluginBundle {
+    website = 'https://www.gradle.org/'
+    vcsUrl = 'https://github.com/gradle/greeting-plugin-example'
+    tags = ['example', 'template']
+}
+
+publishing {
+    repositories {
+//        maven {
+//            name = 'localPluginRepository'
+//            url = '../local-plugin-repository'
+//        }
+
+        maven {
+            name = 'localPluginRepository'
+            url = '../local-plugin-repository'
+        }
+    }
+}
+
+
+dependencies {
+//    // 引入AGP，后面需要用到AppExtension
+    implementation 'com.android.tools.build:gradle:4.2.0'
+
+    // 由于需要用到网络请求，所以这里使用Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+}
